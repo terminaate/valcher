@@ -15,6 +15,8 @@
     "src/**/*"
   ],
   "exclude": [
-    "src/client/**/*"
+    "src/client/**/*",
+    "node_modules",
+    "dist"
   ]
 }

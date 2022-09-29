@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "tsc && vite build --watch",
+    "dev:server": "tsc && vite",
     "build": "tsc && vite build"
   },
   "dependencies": {

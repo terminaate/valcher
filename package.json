@@ -8,7 +8,9 @@
     "lint": "eslint -c .eslintrc --ext .ts ./src",
     "start": "npm run build && electron ./dist/main.js",
     "dev:client": "cd ./src/client && npm run dev",
-    "dev:server": "tsc-watch --outDir ./dist --onSuccess \"electron ./dist/main.js\"",
+    "dev:client:server": "cd ./src/client && npm run dev:server",
+    "dev:server": "tsc-watch ./src/index.ts --outDir ./dist --onSuccess \"node ./dist/server/index.js\"",
+    "dev:http-server": "",
     "start:dev": "concurrently \"npm run dev:client\" \"npm run dev:server\" "
   },
   "repository": "",

@@ -1,12 +1,15 @@
 {
   "compilerOptions": {
+    "target": "es2016",
     "module": "commonjs",
-    "noImplicitAny": true,
+    "noImplicitAny": false,
+    "moduleResolution": "Node",
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
       "*": ["node_modules/*"]
-    }
+    },
+    "esModuleInterop": true
   },
   "include": [
     "src/**/*"

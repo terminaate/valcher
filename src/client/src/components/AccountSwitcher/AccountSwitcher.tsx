@@ -9,9 +9,9 @@ import cl from "./NavBar.module.scss"
 //     )
 // }
 
-const NavBar = () => {
+const AccountSwitcher = () => {
     return (
-        <div className={cl.navBarContainer}>
+        <div className={cl.switcherContainer}>
             Nav
             {/*{JSON.parse(localStorage.getItem("puuids")! || [] + '').map((account, key) => (*/}
             {/*    <NavIcon account={account} key={key}/>*/}
@@ -20,4 +20,4 @@ const NavBar = () => {
     );
 };
 
-export default NavBar;
+export default AccountSwitcher;

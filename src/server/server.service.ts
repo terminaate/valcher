@@ -40,7 +40,7 @@ class ServerService {
         }
         const {titleText: playerTitle} = (await this.valApiComClient.PlayerTitles.getByUuid(inventory.Identity.PlayerTitleID)).data.data;
 
-        return {username: data.acct.game_name, tag: data.acct.tag_line, playerCard: playerCardImages, playerTitle}
+        return {puuid, username: data.acct.game_name, tag: data.acct.tag_line, playerCard: playerCardImages, playerTitle}
     }
 }
 

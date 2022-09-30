@@ -1,5 +1,6 @@
-import React from 'react';
-import cl from "./NavBar.module.scss"
+import React, {useEffect} from 'react';
+import cl from "./AccountSwitcher.module.scss"
+import store from "../../store";
 
 // const NavIcon = ({account}) => {
 //     return (

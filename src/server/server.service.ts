@@ -3,20 +3,43 @@ import ServerException from "./exceptions/server.exception";
 import DbRepository from "./db.repository";
 
 class ServerService {
-    private readonly valClient = new WebClient.Client({expiresIn: {cookie: 300000, token: 300000}});
-    private readonly valApiComClient = new ValorantApiCom.Client();
+    private valClient: WebClient.Client;
+    private valApiComClient: ValorantApiCom.Client;
 
-    async auth(username: string, password: string) {
-        await this.valClient.login(username, password);
+    async auth(puuid?, username?: string, password?: string) {
+        this.valClient = new WebClient.Client({expiresIn: {cookie: 300000, token: 300000}});
+        this.valApiComClient = new ValorantApiCom.Client();
+
+        if (puuid) {
+            const user = DbRepository.db.find(u => u.puuid === puuid);
+            if (!user) {
+                throw ServerException.WrongAuthData();
+            }
+            await this.valClient.login(user.username, user.password)
+        } else if (username && password) {
+            await this.valClient.login(username, password);
+        } else {
+            throw ServerException.WrongAuthData();
+        }
+
+        // TODO
+        // add multifactor auth
+        if (this.valClient.isMultifactor) {
+            return {puuid: null, isMultifactor: this.valClient.isMultifactor}
+        }
+
         const {Player: PlayerService} = this.valClient;
+        const userPuuid = (await PlayerService.fetchPlayerRestrictions()).data.Subject;
+
+        if (!DbRepository.db.find(u => u.puuid === userPuuid)) {
+            DbRepository.addUser(userPuuid, username, password)
+        }
 
         const userInfo = await PlayerService.getUserInfo();
         if (userInfo.data.errorCode === 400) {
             throw ServerException.WrongAuthData();
         }
-        const puuid = (await PlayerService.fetchPlayerRestrictions()).data.Subject;
-        DbRepository.addUser(puuid, username, password)
-        return puuid
+        return {puuid: userPuuid}
         // TESTS OF API
         // const weaponId = (await this.valClient.Store.getStorefront(puuid)).data.BonusStore.BonusStoreOffers[0].BonusOfferID
         // console.log(await this.valApiComClient.Weapons.getByUuid(weaponId))
@@ -38,9 +61,16 @@ class ServerService {
             wideArt,
             largeArt
         }
-        const {titleText: playerTitle} = (await this.valApiComClient.PlayerTitles.getByUuid(inventory.Identity.PlayerTitleID)).data.data;
+        // const {titleText: playerTitle} = (await this.valApiComClient.PlayerTitles.getByUuid(inventory.Identity.PlayerTitleID)).data.data;
+        console.log(inventory.Identity)
 
-        return {puuid, username: data.acct.game_name, tag: data.acct.tag_line, playerCard: playerCardImages, playerTitle}
+        return {
+            puuid,
+            username: data.acct.game_name,
+            tag: data.acct.tag_line,
+            playerCard: playerCardImages,
+            playerTitle: ""
+        }
     }
 }
 

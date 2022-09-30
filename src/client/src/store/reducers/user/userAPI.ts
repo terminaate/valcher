@@ -21,9 +21,9 @@ export const getUserInfo = createAsyncThunk(
 
 export const auth = createAsyncThunk(
     'auth',
-    async ({username, password}: { username: string, password: string }, thunkAPI) => {
+    async ({username, password, puuid}: { puuid?: string, username?: string, password?: string }, thunkAPI) => {
         try {
-            const {data} = await AuthService.auth(username, password);
+            const {data} = puuid ? await AuthService.auth(puuid) : await AuthService.auth("", username, password)
             return data;
         } catch (e: any) {
             logError(e);

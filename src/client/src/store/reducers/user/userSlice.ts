@@ -61,19 +61,23 @@ export const userSlice = createSlice({
         for (const asyncThunk of [...userAsyncThunks]) {
             builder.addCase(asyncThunk.pending, handlePending);
             builder.addCase(asyncThunk.rejected, handleReject);
-            builder.addCase(asyncThunk.fulfilled, handleFulfilled);
         }
 
         const handleAuth = (state: Draft<UserState>, action: AnyAction) => {
             localStorage.setItem("puuid", action.payload.puuid);
-            state.user.puuid = action.payload.puuid;
+            state.user = {...initialState.user, puuid: action.payload.puuid};
             state.authorized = true;
+            handleFulfilled(state)
         };
 
         builder.addCase(auth.fulfilled, handleAuth);
 
         builder.addCase(getUserInfo.fulfilled, (state: Draft<UserState>, action) => {
             state.user = action.payload;
+            const users = JSON.parse(localStorage.getItem("puuids")!);
+            users.push(state.user);
+            localStorage.setItem("puuids", JSON.stringify(users))
+            handleFulfilled(state)
         });
     }
 });

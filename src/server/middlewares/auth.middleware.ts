@@ -13,7 +13,7 @@ export default async (req: UserRequest, res: Response, next: NextFunction) => {
             return next(ServerException.UnauthorizedError());
         }
 
-        await ServerService.auth(userData.username, userData.password)
+        await ServerService.auth(userData.puuid)
         req.user = authorizationHeader;
         next();
     } catch (e) {

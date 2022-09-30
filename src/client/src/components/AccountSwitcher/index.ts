@@ -1,3 +1,3 @@
-import AccountSwitcher from "./NavBar";
+import AccountSwitcher from "./AccountSwitcher";
 
 export default AccountSwitcher;

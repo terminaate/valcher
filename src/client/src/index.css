@@ -6,11 +6,12 @@
     outline: none;
     list-style-type: none;
     box-sizing: border-box;
+    user-select: none;
 }
 
 :root {
     --background-primary: #111;
-    --background-secondary: #000;
+    --background-secondary: #0e0e0e;
     --text-primary: #fff;
     --font-primary: 'Inter', sans-serif;
 }

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://127.0.0.1:19245"
+const baseURL = window.origin + "/api"
 
 const $api = axios.create({
     baseURL

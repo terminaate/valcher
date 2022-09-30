@@ -1,8 +1,7 @@
 import React from 'react';
 import {Route, Routes, useLocation} from 'react-router-dom';
-import LoginPage from "../pages/AuthPages/LoginPage";
-import RegisterPage from "../pages/AuthPages/RegisterPage";
 import {AnimatePresence} from "framer-motion";
+import AuthPage from "../pages/AuthPage";
 
 const Routing = () => {
     const location = useLocation()
@@ -10,8 +9,7 @@ const Routing = () => {
     return (
         <AnimatePresence mode={"wait"}>
             <Routes location={location} key={location.pathname}>
-                <Route path={"/"} element={<LoginPage/>}/>
-                <Route path={"/register"} element={<RegisterPage/>}/>
+                <Route path={"/"} element={<AuthPage/>}/>
             </Routes>
         </AnimatePresence>
     );

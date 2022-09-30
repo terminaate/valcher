@@ -4,8 +4,8 @@ import * as fs from "fs";
 
 function createWindow() {
     const mainWindow = new BrowserWindow({
-        minHeight: 400,
-        minWidth: 600,
+        minHeight: 600,
+        minWidth: 800,
         center: true,
         webPreferences: {
             preload: path.resolve(__dirname, "./preload.js")

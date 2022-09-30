@@ -1,10 +1,10 @@
-import {WebClient, ValorantApiCom} from "valorant.ts";
+import {ValorantApiCom, WebClient} from "valorant.ts";
 import ServerException from "./exceptions/server.exception";
 import DbRepository from "./db.repository";
 
 class ServerService {
-    private readonly valClient = new WebClient.Client();
-    private readonly valApiComClient = new ValorantApiCom.Client()
+    private readonly valClient = new WebClient.Client({expiresIn: {cookie: 300000, token: 300000}});
+    private readonly valApiComClient = new ValorantApiCom.Client();
 
     async auth(username: string, password: string) {
         await this.valClient.login(username, password);
@@ -27,10 +27,21 @@ class ServerService {
     }
 
     async getUserInfo() {
-        console.log((await this.valClient.Player.getUserInfo()).data)
-        return {}
-    }
+        const {data} = await this.valClient.Player.getUserInfo();
+        const puuid = (await this.valClient.Player.fetchPlayerRestrictions()).data.Subject;
+        const {data: inventory} = await this.valClient.Player.loadout(puuid);
+        const {data: playerCard} = (await this.valApiComClient.PlayerCards.getByUuid(inventory.Identity.PlayerCardID)).data
+        const {displayIcon, smallArt, wideArt, largeArt} = playerCard;
+        const playerCardImages = {
+            displayIcon,
+            smallArt,
+            wideArt,
+            largeArt
+        }
+        const {titleText: playerTitle} = (await this.valApiComClient.PlayerTitles.getByUuid(inventory.Identity.PlayerTitleID)).data.data;
 
+        return {username: data.acct.game_name, tag: data.acct.tag_line, playerCard: playerCardImages, playerTitle}
+    }
 }
 
 export default new ServerService()

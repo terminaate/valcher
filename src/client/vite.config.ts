@@ -7,7 +7,8 @@ export default defineConfig({
   plugins: [react()],
   build: {
     outDir: pJoin(__dirname, "../../dist/client"),
-    emptyOutDir: true
+    emptyOutDir: true,
+    minify: "terser"
   },
   base: ""
 })

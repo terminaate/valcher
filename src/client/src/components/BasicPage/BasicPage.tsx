@@ -3,6 +3,7 @@ import cl from "./BasicPage.module.scss"
 import classNames from "classnames";
 import AccountSwitcher from "../AccountSwitcher";
 import {motion} from "framer-motion";
+import {useAppSelector} from "../../store";
 
 interface IBasicPage {
     children?: ReactNode,
@@ -11,10 +12,12 @@ interface IBasicPage {
 }
 
 const BasicPage: FC<IBasicPage> = ({children, className, pageClassName}) => {
+    const {authorized} = useAppSelector(state => state.userSlice);
+
     return (
         <div className={classNames(cl.basicPage, className!)}>
-            <AccountSwitcher/>
-            <motion.div transition={{duration: 0.2}} initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} className={classNames(cl.pageContainer, pageClassName!)}>
+            {authorized && <AccountSwitcher/>}
+            <motion.div data-border-radius={authorized} transition={{duration: 0.2}} initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} className={classNames(cl.pageContainer, pageClassName!)}>
                 {children}
             </motion.div>
         </div>

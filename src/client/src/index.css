@@ -12,16 +12,15 @@
 :root {
     --background-primary: #111;
     --background-secondary: #0e0e0e;
+    --background-red: #fa4454;
+    --background-red-secondary: #dc3d4b;
     --text-primary: #fff;
+    --border-primary: rgba(255, 255, 255, 0.1);
+    --text-secondary: rgba(255, 255, 255, 0.5);
     --font-primary: 'Inter', sans-serif;
 }
 
 body {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     background-color: var(--background-primary);
     color: var(--text-primary);
     font-family: var(--font-primary);

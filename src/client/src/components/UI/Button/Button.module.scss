@@ -1,0 +1,15 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  column-gap: 10px;
+  border: 2px solid var(--border-primary);
+  background-color: var(--background-primary);
+  color: var(--text-primary);
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+}

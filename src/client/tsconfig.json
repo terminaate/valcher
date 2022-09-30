@@ -15,8 +15,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "typeRoots": ["./src/declare.d.ts" ]
   },
-  "include": ["src"],
+  "include": ["src", "src/assets"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

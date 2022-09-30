@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
 import Routing from "./components/Routing";
 import {useAppDispatch} from "./store";
-import {auth, getUserInfo} from "./store/reducers/user/userAPI";
+import {auth} from "./store/reducers/user/userAPI";
 
 const App = () => {
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (!localStorage.getItem("puuids")) {

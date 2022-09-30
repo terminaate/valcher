@@ -22,7 +22,8 @@ function createWindow() {
             sandbox: false,
             preload: path.join(__dirname, 'preload.js')
         },
-        roundedCorners: false
+        roundedCorners: false,
+        icon: path.join(__dirname, "./assets/logo.ico")
     });
 
     attachTitlebarToWindow(mainWindow);

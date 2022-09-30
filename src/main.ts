@@ -2,11 +2,13 @@ import {app, BrowserWindow} from "electron";
 import * as path from "path";
 import * as fs from "fs";
 
-const { setupTitlebar, attachTitlebarToWindow } = require("custom-electron-titlebar/main")
+const {setupTitlebar, attachTitlebarToWindow} = require("custom-electron-titlebar/main")
 
 setupTitlebar()
 
+
 function createWindow() {
+
     const mainWindow = new BrowserWindow({
         minHeight: 480,
         minWidth: 850,
@@ -19,19 +21,20 @@ function createWindow() {
         webPreferences: {
             sandbox: false,
             preload: path.join(__dirname, 'preload.js')
-        }
+        },
+        roundedCorners: false
     });
 
     attachTitlebarToWindow(mainWindow);
 
+    require("./server/index.js")
+
     const loadingInterval = setInterval(() => {
         if (fs.readdirSync(path.resolve(__dirname, "")).includes("client") && fs.readdirSync(path.resolve(__dirname, "./client")).includes("index.html")) {
-            mainWindow.loadFile(path.resolve(__dirname, "./client/index.html"));
+            mainWindow.loadURL("http://127.0.0.1:19245")
             clearInterval(loadingInterval)
         }
     }, 1)
-
-    require("./server/index.js")
 }
 
 

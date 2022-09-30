@@ -1,10 +1,9 @@
 import React from 'react';
+import Routing from "./components/Routing";
 
 const App = () => {
     return (
-        <div>
-            TEST 01
-        </div>
+        <Routing/>
     );
 };
 

@@ -1,11 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
 *, *:after, *:before {
-  padding: 0;
-  margin: 0;
-  outline: none;
-  list-style-type: none;
-  box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    outline: none;
+    list-style-type: none;
+    box-sizing: border-box;
 }
 
 :root {
-  --background-primary: #fff;
+    --background-primary: #111;
+    --text-primary: #fff;
+    --font-primary: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--background-primary);
+    color: var(--text-primary);
+    font-family: var(--font-primary);
+}
+
+.appTitle {
+    position: relative;
+    transform: none;
+    left: 0;
+    color: rgba(255, 255, 255, 0.3);
+    font-weight: 500;
+}
+
+.appIconContainer {
+    display: flex;
+    align-items: center;
+    padding-left: 19px;
+    line-height: 100%;
+    width: auto;
+    column-gap: 10px;
+    font-size: 12px;
+}
+
+.appIconContainer img {
+    display: none;
 }

@@ -35,7 +35,6 @@ const AccountSwitcher = () => {
                     <FaPlus/>
                 </button>
             </Tooltip>
-
         </div>
     );
 };

@@ -67,8 +67,7 @@ export const userSlice = createSlice({
         const handleAuth = (state: Draft<UserState>, action: AnyAction) => {
             state.user = {...initialState.user, puuid: action.payload.puuid};
             state.authorized = true;
-            if (!localStorage.getItem("puuid") || (!localStorage.getItem("puuids") || JSON.parse(localStorage.getItem("puuids")!).length === 0)) {
-                console.log("REDIRECTED", location.pathname)
+            if (location.pathname === "/" || (!localStorage.getItem("puuid") || (!localStorage.getItem("puuids") || JSON.parse(localStorage.getItem("puuids")!).length === 0))) {
                 History.push("/profile")
             }
             localStorage.setItem("puuid", action.payload.puuid);

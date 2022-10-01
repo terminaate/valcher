@@ -2,6 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import BasicPage from "../../components/BasicPage";
 import {useAppDispatch, useAppSelector} from "../../store";
 import {getUserInfo} from "../../store/reducers/user/userAPI";
+import {useNavigate} from "react-router-dom";
 
 const ProfilePage = () => {
     const dispatch = useAppDispatch()

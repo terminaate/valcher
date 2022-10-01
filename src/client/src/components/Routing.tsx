@@ -4,6 +4,7 @@ import {AnimatePresence} from "framer-motion";
 import AuthPage from "../pages/AuthPage";
 import ProfilePage from "../pages/ProfilePage";
 import ShopPage from "../pages/ShopPage";
+import AuthorizedRoute from "./AuthorizedRoute";
 
 const Routing = () => {
     const location = useLocation()
@@ -12,8 +13,16 @@ const Routing = () => {
         <AnimatePresence mode={"wait"}>
             <Routes location={location} key={location.pathname}>
                 <Route path={"/"} element={<AuthPage/>}/>
-                <Route path={"/profile"} element={<ProfilePage/>}/>
-                <Route path={"/shop"} element={<ShopPage/>}/>
+                <Route path={"/profile"} element={
+                    <AuthorizedRoute>
+                        <ProfilePage/>
+                    </AuthorizedRoute>
+                }/>
+                <Route path={"/shop"} element={
+                    <AuthorizedRoute>
+                        <ShopPage/>
+                    </AuthorizedRoute>
+                }/>
             </Routes>
         </AnimatePresence>
     );

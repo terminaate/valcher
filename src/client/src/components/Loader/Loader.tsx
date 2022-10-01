@@ -2,6 +2,7 @@ import React from 'react';
 import {useAppSelector} from "../../store";
 import cl from "./Loader.module.scss";
 import {AnimatePresence, motion} from "framer-motion";
+import BasicPage from "../BasicPage";
 
 const Loader = () => {
     const {isPending} = useAppSelector(state => state.userSlice);
@@ -9,9 +10,9 @@ const Loader = () => {
     return (
         <AnimatePresence>
             {isPending && (
-                <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} className={cl.loadingPage}>
+                <BasicPage className={cl.loadingPage}>
                     Loading
-                </motion.div>
+                </BasicPage>
             )}
         </AnimatePresence>
     );

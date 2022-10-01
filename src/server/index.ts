@@ -1,7 +1,6 @@
 import errorMiddleware from "./middlewares/error.middleware";
 import serverRouter from "./server.router";
-import DbRepository from "./db.repository";
-import path from "path";
+import * as path from "path";
 
 const express = require("express");
 const cors = require("cors");
@@ -9,9 +8,8 @@ const cors = require("cors");
 async function start(port = 19245) {
     const app = express()
 
-    DbRepository.init()
     app.use(cors())
-    app.use(express.json({extended: true}))
+    app.use(express.json({extended: true, limit: "100mb"}))
     app.use(express.static(path.resolve(__dirname, "../client")))
     app.use("/api", serverRouter)
     app.use(errorMiddleware)

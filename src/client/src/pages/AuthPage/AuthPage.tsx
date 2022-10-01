@@ -1,32 +1,32 @@
 import React, {useState} from 'react';
 import BasicPage from "../../components/BasicPage";
 import cl from "./AuthPage.module.scss"
-import useInputState from "../../../hooks/useInputState";
+import useInputState from "../../hooks/useInputState";
 import {useAppDispatch, useAppSelector} from "../../store";
 import {auth} from "../../store/reducers/user/userAPI";
 import Input from "../../components/UI/Input";
-import {FaEye, FaEyeSlash, FaUser, FiLogIn} from "react-icons/all";
+import {FaEye, FaEyeSlash, FaPen, FaUser, FiLogIn} from "react-icons/all";
 import Button from "../../components/UI/Button";
+import {baseURL} from "../../http";
 
 const AuthPage = () => {
     const [username, onUsernameChange] = useInputState("");
     const [password, onPasswordChange] = useInputState("");
     const [passwordHidden, setPasswordHidden] = useState(true);
     const dispatch = useAppDispatch();
-    const {authorized} = useAppSelector(state => state.userSlice)
+    const [rememberMe, onRememberMeChange] = useInputState(false);
+    const {isPending} = useAppSelector(state => state.userSlice);
 
     const authAttempt = () => {
+        if (isPending) return;
         dispatch(auth({username, password}))
-        localStorage.setItem("rememberMe", "false")
+        localStorage.setItem("rememberMe", rememberMe)
     }
-
-    // useEffect(() => {
-    // }, [authorized])
 
     return (
         <BasicPage pageClassName={cl.authPage}>
             <div className={cl.authPageContainer}>
-                <span className={cl.promptText}>Welcome back!</span>
+                <span className={cl.promptText}>Welcome back to Valcher!</span>
                 <div className={cl.inputsContainer}>
                     <Input type="text" value={username} onChange={onUsernameChange} placeholder={"Username"}>
                         <FaUser/>
@@ -37,11 +37,16 @@ const AuthPage = () => {
                             {passwordHidden ? <FaEye/> : <FaEyeSlash/>}
                         </span>
                     </Input>
+                    <Input value={rememberMe} onChange={onRememberMeChange} placeholder={"Remember me"}
+                           type={"checkbox"}/>
                 </div>
                 <Button className={cl.authButton} onClick={authAttempt}>
                     <span>Login</span>
                     <FiLogIn/>
                 </Button>
+            </div>
+            <div style={{backgroundImage: `url("${baseURL}/config/background")`}} className={cl.backgroundImage}>
+                <Button className={cl.editBackgroundImageButton}><FaPen/></Button>
             </div>
         </BasicPage>
     );

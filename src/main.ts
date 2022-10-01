@@ -6,7 +6,6 @@ const {setupTitlebar, attachTitlebarToWindow} = require("custom-electron-titleba
 
 setupTitlebar()
 
-
 function createWindow() {
 
     const mainWindow = new BrowserWindow({
@@ -22,8 +21,7 @@ function createWindow() {
             sandbox: false,
             preload: path.join(__dirname, 'preload.js')
         },
-        roundedCorners: false,
-        icon: path.join(__dirname, "./assets/logo.ico")
+        icon: path.join(__dirname, "./assets/logo.ico"),
     });
 
     attachTitlebarToWindow(mainWindow);

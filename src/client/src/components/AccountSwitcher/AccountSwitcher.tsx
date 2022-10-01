@@ -1,6 +1,5 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import cl from "./AccountSwitcher.module.scss"
-import store from "../../store";
 
 // const NavIcon = ({account}) => {
 //     return (
@@ -13,7 +12,6 @@ import store from "../../store";
 const AccountSwitcher = () => {
     return (
         <div className={cl.switcherContainer}>
-            Nav
             {/*{JSON.parse(localStorage.getItem("puuids")! || [] + '').map((account, key) => (*/}
             {/*    <NavIcon account={account} key={key}/>*/}
             {/*))}*/}

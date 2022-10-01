@@ -18,6 +18,10 @@ class UserService {
     static async getUserInfo(): Promise<AxiosResponse<User>> {
         return await $api.get<User>("/users/@me")
     }
+
+    static async getNews(): Promise<AxiosResponse> {
+        return await $api.get("https://playvalorant.com/page-data/ru-ru/news/page-data.json")
+    }
 }
 
 export default UserService

@@ -6,7 +6,7 @@ class ServerController {
     async auth(req: Request, res: Response, next: NextFunction) {
         try {
             const {puuid, username, password} = req.body;
-            let userData: {puuid: null | string, isMultifactor?: boolean};
+            let userData: { puuid: null | string, isMultifactor?: boolean };
             if (puuid) {
                 userData = await ServerService.auth(puuid);
             } else {
@@ -26,6 +26,27 @@ class ServerController {
             next(e)
         }
     }
+
+    async getBackground(req: Request, res: Response, next: NextFunction) {
+        try {
+            const {image, type} = await ServerService.getBackgroundImage();
+            res.setHeader("Content-Type", "image/" + type)
+            res.status(200).send(image);
+        } catch (e) {
+            next(e)
+        }
+    }
+
+    // async patchBackground(req: Request, res: Response, next: NextFunction) {
+    //     try {
+    //         const {image: newImage} = req.body;
+    //         const {image, type} = await ServerService.patchBackgroundImage(newImage) as {image: any, type: string};
+    //         res.setHeader("Content-Type", "image/" + type)
+    //         res.status(200).send(image);
+    //     } catch (e) {
+    //         next(e)
+    //     }
+    // }
 
     async notFound(req: Request, res: Response, next: NextFunction) {
         try {

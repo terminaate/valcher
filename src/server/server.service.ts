@@ -1,6 +1,9 @@
 import {ValorantApiCom, WebClient} from "valorant.ts";
 import ServerException from "./exceptions/server.exception";
 import DbRepository from "./db.repository";
+import * as fs from "fs/promises"
+import * as path from "path"
+
 
 class ServerService {
     private valClient: WebClient.Client;
@@ -72,6 +75,53 @@ class ServerService {
             playerTitle: ""
         }
     }
+
+    async getBackgroundImage() {
+        const staticFiles = await fs.readdir(path.resolve(__dirname, "./static"));
+        // console.log(staticFiles)
+        const file: string = staticFiles.find(u => u.startsWith("background"));
+        // if (staticFiles.find(u => u.startsWith("custom_background"))) {
+        //     file = staticFiles.find(u => u.startsWith("custom_background"))
+        // }
+        const filePath = path.resolve(__dirname, "./static/" + file)
+        const fileBuffer = await fs.readFile(filePath);
+        return {image: fileBuffer, type: file.split(".")[1]}
+    }
+
+    // async patchBackgroundImage(newImage: string) {
+    //     const file = (await fs.readdir(path.resolve(__dirname, "./static"))).find(u => u.startsWith("custom_background"))
+    //     if (file) {
+    //         await fs.rm(path.resolve(__dirname, "./static/" + file))
+    //     }
+    //
+    //     console.log("Triggered")
+    //
+    //     if (!newImage) {
+    //         // let oldImage: {image: Buffer, type: string};
+    //         try {
+    //             if (file) {
+    //                 await fs.rm(path.resolve(__dirname, "./static/" + file))
+    //             }
+    //         } catch(e) {
+    //             console.log(e)
+    //         }
+    //         return this.getBackgroundImage();
+    //     }
+    //
+    //     const fileExt = newImage.substring("data:image/".length, newImage.indexOf(";base64"))
+    //
+    //     const matches = newImage.match(/^data:([A-Za-z-+\\/]+);base64,(.+)$/);
+    //     let buffer = null
+    //
+    //     if (matches.length !== 3) {
+    //         return new Error('Invalid base64 image');
+    //     }
+    //
+    //     buffer = new Buffer(matches[2], 'base64');
+    //
+    //     await fs.writeFile(path.resolve(__dirname, "./static/custom_background." + fileExt), buffer)
+    //     return this.getBackgroundImage();
+    // }
 }
 
 export default new ServerService()

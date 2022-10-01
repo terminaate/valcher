@@ -12,7 +12,7 @@ class DbRepository {
     private rootPath = path.resolve(__dirname, "");
     db: User[]
 
-    init() {
+    constructor() {
         if (!fs.readdirSync(this.rootPath).includes("db.json")) {
             fs.writeFileSync(this.dbPath, JSON.stringify([]))
             this.db = [];

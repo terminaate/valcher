@@ -1,8 +1,7 @@
 import axios from "axios";
 import store from "../store";
-import {userSlice} from "../store/reducers/user/userSlice";
 
-const baseURL = window.origin + "/api"
+export const baseURL = "http://127.0.0.1:19245/api"
 
 const $api = axios.create({
     baseURL

@@ -4,7 +4,16 @@ export default (defaultState: any, handler?: (e: ChangeEvent<HTMLInputElement>) 
     const [state, setState] = useState(defaultState);
 
     const onStateChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setState(e.target.value);
+        switch (typeof defaultState) {
+            case "string":
+                setState(e.target.value);
+                break;
+
+            case "boolean":
+                setState(e.target.checked);
+                break;
+        }
+
         if (handler) handler(e);
     };
 

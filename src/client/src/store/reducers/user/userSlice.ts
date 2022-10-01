@@ -1,11 +1,12 @@
 import {AnyAction, createSlice, Draft} from '@reduxjs/toolkit';
 import userAsyncThunks, {auth, getUserInfo} from './userAPI';
+import History from "../../../utils/history";
 
 type NullOr<T = any> = null | T;
 
 export interface UserState {
     error: NullOr<string>;
-    isPending: boolean,
+    isPending: boolean;
     authorized: boolean;
     user: {
         puuid: NullOr<string>;
@@ -67,6 +68,7 @@ export const userSlice = createSlice({
             localStorage.setItem("puuid", action.payload.puuid);
             state.user = {...initialState.user, puuid: action.payload.puuid};
             state.authorized = true;
+            History.push("/profile")
             handleFulfilled(state)
         };
 
@@ -75,8 +77,10 @@ export const userSlice = createSlice({
         builder.addCase(getUserInfo.fulfilled, (state: Draft<UserState>, action) => {
             state.user = action.payload;
             const users = JSON.parse(localStorage.getItem("puuids")!);
-            users.push(state.user);
-            localStorage.setItem("puuids", JSON.stringify(users))
+            if (!users.find(u => u.puuid === state.user.puuid)) {
+                users.push(state.user);
+                localStorage.setItem("puuids", JSON.stringify(users))
+            }
             handleFulfilled(state)
         });
     }

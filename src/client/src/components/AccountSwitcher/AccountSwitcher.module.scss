@@ -1,8 +1,33 @@
 .switcherContainer {
-  width: 70px;
+  min-width: 70px;
+  max-width: 70px;
   height: 100%;
   background-color: var(--background-secondary);
   display: flex;
   align-items: center;
   flex-direction: column;
+  padding-top: 20px;
+  row-gap: 20px;
+
+  .addButton {
+    cursor: pointer;
+    width: max-content;
+    background-color: var(--background-primary);
+    color: var(--background-red);
+    min-width: 40px;
+    min-height: 40px;
+    max-width: 40px;
+    max-height: 40px;
+    border: 2px solid var(--background-red-secondary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
 }

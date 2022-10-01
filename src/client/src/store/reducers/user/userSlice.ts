@@ -65,10 +65,12 @@ export const userSlice = createSlice({
         }
 
         const handleAuth = (state: Draft<UserState>, action: AnyAction) => {
-            localStorage.setItem("puuid", action.payload.puuid);
             state.user = {...initialState.user, puuid: action.payload.puuid};
             state.authorized = true;
-            History.push("/profile")
+            if (!localStorage.getItem("puuid") || !JSON.parse(localStorage.getItem("puuids")!).includes(action.payload.puuid)) {
+                History.push("/profile")
+            }
+            localStorage.setItem("puuid", action.payload.puuid);
             handleFulfilled(state)
         };
 

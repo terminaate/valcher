@@ -2,7 +2,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import UserService from '../../../services/UserService';
 import AuthService from "../../../services/AuthService";
 
-export const logError = (e: any) => console.log(getErrorMessage(e).message);
+export const logError = (e: any) => console.log(getErrorMessage(e));
 
 export const getErrorMessage = (e: any) => e.response!.data.message;
 

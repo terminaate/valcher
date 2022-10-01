@@ -7,6 +7,7 @@ const ProfilePage = () => {
     const dispatch = useAppDispatch()
     const {authorized} = useAppSelector(state => state.userSlice);
     const wasAuthorized = useRef(false);
+    const {user} = useAppSelector(state => state.userSlice);
 
     useEffect(() => {
         if (authorized && !wasAuthorized.current) {
@@ -17,7 +18,7 @@ const ProfilePage = () => {
 
     return (
         <BasicPage>
-            Profile Page
+            Profile Page - {user.puuid}
         </BasicPage>
     );
 };

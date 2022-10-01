@@ -20,7 +20,11 @@ const AuthPage = () => {
     const authAttempt = () => {
         if (isPending) return;
         dispatch(auth({username, password}))
-        localStorage.setItem("rememberMe", rememberMe)
+        // TODO
+        // edit rememberMe system
+        if (localStorage.getItem("rememberMe") === null) {
+            localStorage.setItem("rememberMe", rememberMe)
+        }
     }
 
     return (
@@ -37,8 +41,10 @@ const AuthPage = () => {
                             {passwordHidden ? <FaEye/> : <FaEyeSlash/>}
                         </span>
                     </Input>
-                    <Input value={rememberMe} onChange={onRememberMeChange} placeholder={"Remember me"}
-                           type={"checkbox"}/>
+                    {localStorage.getItem("rememberMe") === null && (
+                        <Input value={rememberMe} onChange={onRememberMeChange} placeholder={"Remember me"}
+                               type={"checkbox"}/>
+                    )}
                 </div>
                 <Button className={cl.authButton} onClick={authAttempt}>
                     <span>Login</span>

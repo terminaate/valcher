@@ -78,11 +78,11 @@ export const userSlice = createSlice({
 
         builder.addCase(getUserInfo.fulfilled, (state: Draft<UserState>, action) => {
             state.user = action.payload;
-            const users = JSON.parse(localStorage.getItem("puuids")!);
+            const users = JSON.parse(localStorage.getItem("puuids") as string);
             if (!users.find(u => u.puuid === state.user.puuid)) {
-                users.push(state.user);
-                localStorage.setItem("puuids", JSON.stringify(users))
+                users.push({...state.user});
             }
+            localStorage.setItem("puuids", JSON.stringify(users))
             handleFulfilled(state)
         });
     }

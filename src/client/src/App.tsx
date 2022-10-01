@@ -10,7 +10,7 @@ const App = () => {
     useEffect(() => {
         if (!localStorage.getItem("puuids")) {
             localStorage.setItem("puuids", JSON.stringify([]))
-        } else if (localStorage.getItem("rememberMe") === "true" && localStorage.getItem("puuid")) {
+        } else if (localStorage.getItem("puuid")) {
             dispatch(auth({puuid: localStorage.getItem("puuid")!}))
         }
     }, [])

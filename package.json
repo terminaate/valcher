@@ -6,7 +6,7 @@
   "scripts": {
     "setup": "npm i --force && cd ./src/client && npm i",
     "build:client": "cd ./src/client && npm run build",
-    "build": "npm run build:client && tsc",
+    "build": "npm run build:client && tsc && node ./moveStatic.js",
     "lint": "eslint -c .eslintrc --ext .ts ./src",
     "start": "npm run build && electron-forge start",
     "dev:client": "cd ./src/client && npm run dev",
@@ -31,6 +31,7 @@
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
     "concurrently": "^7.4.0",
+    "copy-dir": "^1.3.0",
     "electron": "^20.2.0",
     "eslint": "^7.32.0",
     "tsc-watch": "^5.0.3",

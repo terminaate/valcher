@@ -20,6 +20,7 @@ const ProfilePage = () => {
     return (
         <BasicPage>
             Profile Page - {user.puuid}
+            Profile Title - {user.playerTitle}
         </BasicPage>
     );
 };

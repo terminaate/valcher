@@ -22,6 +22,7 @@ class ServerService {
         } else if (username && password) {
             await this.valClient.login(username, password);
         } else {
+            console.log("Has no puuid and no username, password")
             throw ServerException.WrongAuthData();
         }
 
@@ -64,15 +65,21 @@ class ServerService {
             wideArt,
             largeArt
         }
-        // const {titleText: playerTitle} = (await this.valApiComClient.PlayerTitles.getByUuid(inventory.Identity.PlayerTitleID)).data.data;
-        console.log(inventory.Identity)
+        let playerTitle = "";
 
+        try {
+            if (inventory.Identity !== "00000000-0000-0000-0000-000000000000") {
+                playerTitle = (await this.valApiComClient.PlayerTitles.getByUuid(inventory.Identity.PlayerTitleID)).data.data.titleText as string;
+            }
+        } catch (e) {
+            console.log(e.message)
+        }
         return {
             puuid,
             username: data.acct.game_name,
             tag: data.acct.tag_line,
             playerCard: playerCardImages,
-            playerTitle: ""
+            playerTitle: playerTitle
         }
     }
 

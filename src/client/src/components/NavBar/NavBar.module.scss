@@ -1,0 +1,36 @@
+.navBarContainer {
+  height: 100%;
+  min-width: 50px;
+  max-width: 50px;
+  background-color: var(--background-secondary);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 20px;
+  row-gap: 20px;
+
+  .link {
+    .button {
+      cursor: pointer;
+      width: max-content;
+      background-color: var(--background-primary);
+      color: var(--background-red);
+      min-width: 40px;
+      min-height: 40px;
+      max-width: 40px;
+      max-height: 40px;
+      border: 2px solid var(--background-red-secondary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    &[aria-current="page"] {
+      .button {
+        box-shadow: 0 0 20px var(--background-red);
+      }
+    }
+  }
+}

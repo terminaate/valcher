@@ -4,19 +4,12 @@ import {FaPlus} from "react-icons/all";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useAppDispatch} from "../../store";
 import {auth} from "../../store/reducers/user/userAPI";
-
-// const NavIcon = ({account}) => {
-//     return (
-//         <div>
-//             account.name
-//         </div>
-//     )
-// }
+import Tooltip from "../Tooltip";
 
 const AccountSwitcher = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const location = useLocation()
+    const location = useLocation();
 
     const changeAccount = (account: Record<string, any>) => {
         if (localStorage.getItem("puuid") !== account.puuid) {
@@ -31,13 +24,18 @@ const AccountSwitcher = () => {
     return (
         <div className={cl.switcherContainer}>
             {JSON.parse(localStorage.getItem("puuids")! || [] + '').map((account, key) => (
-                <button onClick={() => changeAccount(account)} key={key} className={cl.addButton}>
-                    <img alt={""} src={account.playerCard.displayIcon}/>
-                </button>
+                <Tooltip key={key} text={account.username}>
+                    <button onClick={() => changeAccount(account)} data-active={localStorage.getItem("puuid") === account.puuid} className={cl.button}>
+                        <img alt={""} src={account.playerCard.displayIcon}/>
+                    </button>
+                </Tooltip>
             ))}
-            <button onClick={() => navigate("/")} className={cl.addButton}>
-                <FaPlus/>
-            </button>
+            <Tooltip text={"Add account"}>
+                <button onClick={() => navigate("/")} className={cl.button}>
+                    <FaPlus/>
+                </button>
+            </Tooltip>
+
         </div>
     );
 };

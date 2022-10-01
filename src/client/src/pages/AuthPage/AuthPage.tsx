@@ -17,6 +17,9 @@ const AuthPage = () => {
     const [rememberMe, onRememberMeChange] = useInputState(false);
     const {isPending} = useAppSelector(state => state.userSlice);
 
+    // TODO
+    // Shows error
+
     const authAttempt = () => {
         if (isPending) return;
         dispatch(auth({username, password}))

@@ -42,10 +42,10 @@ body {
 	padding-left: 19px;
 	line-height: 100%;
 	width: auto;
-	column-gap: 10px;
+	column-gap: 5px;
 	font-size: 12px;
 }
 
 .appIconContainer img {
-	display: none;
+	border-radius: 10px;
 }

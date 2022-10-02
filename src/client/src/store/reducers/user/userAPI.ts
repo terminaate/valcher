@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import UserService from '../../../services/UserService';
-import AuthService from '../../../services/AuthService';
+import UserService from '@/services/UserService';
+import AuthService from '@/services/AuthService';
 
 export const logError = (e: any) => console.log(getErrorMessage(e));
 

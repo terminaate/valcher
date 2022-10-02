@@ -1,6 +1,6 @@
 import { AnyAction, createSlice, Draft } from '@reduxjs/toolkit';
 import userAsyncThunks, { auth, getUserInfo } from './userAPI';
-import History from '../../../utils/history';
+import History from '@/utils/history';
 
 type NullOr<T = any> = null | T;
 

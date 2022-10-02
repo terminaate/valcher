@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import BasicPage from '../../components/BasicPage';
+import BasicPage from '@/components/BasicPage';
 import cl from './AuthPage.module.scss';
-import useInputState from '../../hooks/useInputState';
-import { useAppDispatch, useAppSelector } from '../../store';
-import { auth } from '../../store/reducers/user/userAPI';
-import Input from '../../components/UI/Input';
+import useInputState from '@/hooks/useInputState';
+import { useAppDispatch, useAppSelector } from '@/store';
+import { auth } from '@/store/reducers/user/userAPI';
+import Input from '@/components/UI/Input';
 import { FaEye, FaEyeSlash, FaPen, FaUser, FiLogIn } from 'react-icons/all';
-import Button from '../../components/UI/Button';
-import { baseURL } from '../../http';
+import Button from '@/components/UI/Button';
+import { baseURL } from '@/http';
+import tLogoImg from "!/images/transperent_logo.svg";
 
 const AuthPage = () => {
 	const [username, onUsernameChange] = useInputState('');
@@ -33,7 +34,11 @@ const AuthPage = () => {
 	return (
 		<BasicPage pageClassName={cl.authPage}>
 			<div className={cl.authPageContainer}>
-				<span className={cl.promptText}>Welcome back to Valcher!</span>
+				<div className={cl.promptText}>
+					<img src={tLogoImg} alt=""/>
+					-
+					<span>Welcome back to Valcher!</span>
+				</div>
 				<div className={cl.inputsContainer}>
 					<Input
 						type="text"

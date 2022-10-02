@@ -16,7 +16,19 @@
 		"noEmit": true,
 		"jsx": "react-jsx",
 		"noImplicitAny": false,
-		"typeRoots": ["./src/declare.d.ts"]
+		"typeRoots": ["./src/declare.d.ts"],
+		"types": [
+			"vite/client"
+		],
+		"baseUrl": ".",
+		"paths": {
+			"@/*": [
+				"src/*"
+			],
+			"!/*": [
+				"src/assets/*"
+			]
+		}
 	},
 	"include": ["src", "src/assets"],
 	"references": [{ "path": "./tsconfig.node.json" }]

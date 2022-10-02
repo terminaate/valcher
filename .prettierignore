@@ -4,3 +4,4 @@
 *.ico
 **/assets
 .gitignore
+**/.idea

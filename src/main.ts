@@ -53,20 +53,24 @@ if (!gotTheLock) {
     app.whenReady().then(() => {
         tray = new Tray(path.join(__dirname, "./assets/logo.ico"));
         const contextMenu = Menu.buildFromTemplate([
-            {label: 'Item1', type: 'radio'},
-            {label: 'Item2', type: 'radio'},
-            {label: 'Item3', type: 'radio', checked: true},
-            {label: 'Item4', type: 'radio'}
+            {label: 'Open', type: 'normal', click: () => {
+                    if (!mainWindow) {
+                        createWindow()
+                    } else {
+                        if (mainWindow.isMinimized()) mainWindow.restore()
+                        mainWindow.focus()
+                    }
+                }},
+            {label: 'Exit', type: 'normal', click: () => app.quit()},
         ])
+
         tray.setContextMenu(contextMenu)
         createWindow()
-
     });
 }
 
-// app.on("window-all-closed", () => {
-//     if (process.platform !== "darwin") {
-//         app.quit();
-//     }
-// });
+app.on("window-all-closed", () => {
+    console.log('All windows all closed');
+    mainWindow = null;
+});
 

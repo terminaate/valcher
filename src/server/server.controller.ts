@@ -57,6 +57,15 @@ class ServerController {
 		}
 	}
 
+	async getNews(req: Request, res: Response, next: NextFunction) {
+		try {
+			const news = await ServerService.getNews();
+			res.status(200).json(news);
+		} catch (e) {
+			next(e);
+		}
+	}
+
 	async notFound(req: Request, res: Response, next: NextFunction) {
 		try {
 			res.status(404).json({ error: 'endpoint not found', code: 404 });

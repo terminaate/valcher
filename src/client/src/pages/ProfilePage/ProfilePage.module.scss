@@ -1,5 +1,6 @@
 .userPage {
 	display: flex;
+	column-gap: 20px;
 	align-items: center;
 
 	.container {
@@ -11,7 +12,44 @@
 		//width: 100%;
 		height: 100%;
 		min-width: 250px;
-		border: 1px solid #fff;
+		max-width: 300px;
+		display: flex;
+		row-gap: 20px;
+		flex-direction: column;
+
+		.newsLink {
+			text-decoration: none;
+			color: var(--text-primary);
+
+			.newsBlock {
+				width: 100%;
+				background-color: var(--background-secondary);
+				//min-height: 225px;
+				height: auto;
+				display: flex;
+				flex-direction: column;
+				border-bottom: 1px solid var(--background-red);
+				border-radius: 5px 5px 0 0;
+				transition: .2s;
+
+				&:hover {
+					background-color: var(--background-red-alt);
+				}
+
+				.newsBlockImg {
+					width: 100%;
+					height: 150px;
+					border-radius: 5px;
+					border-bottom: 2px solid var(--background-red-alt);
+				}
+
+				.newsBlockTitle {
+					width: 100%;
+					overflow-y: scroll;
+					padding: 10px;
+				}
+			}
+		}
 	}
 
 	.bannerImage {

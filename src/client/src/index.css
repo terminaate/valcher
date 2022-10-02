@@ -16,6 +16,7 @@
 	--background-secondary: #0e0e0e;
 	--background-red: #fa4454;
 	--background-red-secondary: #dc3d4b;
+	--background-red-alt: rgba(220, 61, 75, 0.4);
 	--text-primary: #fff;
 	--border-primary: rgba(255, 255, 255, 0.1);
 	--text-secondary: rgba(255, 255, 255, 0.5);
@@ -26,6 +27,7 @@ body {
 	background-color: var(--background-primary);
 	color: var(--text-primary);
 	font-family: var(--font-primary);
+	overflow-x: hidden;
 }
 
 .appTitle {

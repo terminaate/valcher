@@ -1,4 +1,4 @@
-import {app, BrowserWindow} from "electron";
+import {app, BrowserWindow, Menu, Tray} from "electron";
 import * as path from "path";
 import * as fs from "fs";
 
@@ -6,9 +6,10 @@ const {setupTitlebar, attachTitlebarToWindow} = require("custom-electron-titleba
 
 setupTitlebar()
 
-function createWindow() {
+let mainWindow = null;
 
-    const mainWindow = new BrowserWindow({
+function createWindow() {
+    mainWindow = new BrowserWindow({
         minHeight: 480,
         minWidth: 850,
         height: 480,
@@ -36,15 +37,36 @@ function createWindow() {
     }, 1)
 }
 
+let tray = null;
+const gotTheLock = app.requestSingleInstanceLock()
 
-app.whenReady().then(createWindow);
-
-app.on("window-all-closed", () => {
-    if (process.platform !== "darwin") {
-        app.quit();
-        if (require.cache["./server/index.js"]) {
-            delete require.cache["./server/index.js"];
+if (!gotTheLock) {
+    app.quit()
+} else {
+    app.on('second-instance', () => {
+        if (mainWindow) {
+            if (mainWindow.isMinimized()) mainWindow.restore()
+            mainWindow.focus()
         }
-    }
-});
+    })
+
+    app.whenReady().then(() => {
+        tray = new Tray(path.join(__dirname, "./assets/logo.ico"));
+        const contextMenu = Menu.buildFromTemplate([
+            {label: 'Item1', type: 'radio'},
+            {label: 'Item2', type: 'radio'},
+            {label: 'Item3', type: 'radio', checked: true},
+            {label: 'Item4', type: 'radio'}
+        ])
+        tray.setContextMenu(contextMenu)
+        createWindow()
+
+    });
+}
+
+// app.on("window-all-closed", () => {
+//     if (process.platform !== "darwin") {
+//         app.quit();
+//     }
+// });
 

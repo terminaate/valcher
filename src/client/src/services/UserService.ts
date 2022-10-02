@@ -22,6 +22,10 @@ class UserService {
     static async getNews(): Promise<AxiosResponse> {
         return await $api.get("https://playvalorant.com/page-data/ru-ru/news/page-data.json")
     }
+
+    static async launchGame(): Promise<AxiosResponse> {
+        return await $api.post("/launch")
+    }
 }
 
 export default UserService

@@ -2,7 +2,8 @@ import React, {useEffect, useRef} from 'react';
 import BasicPage from "../../components/BasicPage";
 import {useAppDispatch, useAppSelector} from "../../store";
 import {getUserInfo} from "../../store/reducers/user/userAPI";
-import {useNavigate} from "react-router-dom";
+import cl from "./ProfilePage.module.scss"
+import UserService from "../../services/UserService";
 
 const ProfilePage = () => {
     const dispatch = useAppDispatch()
@@ -17,10 +18,17 @@ const ProfilePage = () => {
         }
     }, [authorized])
 
+    const launchGame = () => {
+        UserService.launchGame().then(() => {
+            window.close()
+        })
+    }
+
     return (
         <BasicPage>
-            Profile Page - {user.puuid}
-            Profile Title - {user.playerTitle}
+            <span>Profile Page - {user.puuid}</span>
+            <span>Profile Title - {user.playerTitle}</span>
+            <button onClick={launchGame}>Launch game</button>
         </BasicPage>
     );
 };

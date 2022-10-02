@@ -4,6 +4,7 @@ import DbRepository from "./db.repository";
 import * as fs from "fs/promises"
 import * as path from "path"
 
+const {LocalRiotClientAPI} = require("@liamcottle/valorant.js")
 
 class ServerService {
     private valClient: WebClient.Client;
@@ -93,6 +94,14 @@ class ServerService {
         const filePath = path.resolve(__dirname, "./static/" + file)
         const fileBuffer = await fs.readFile(filePath);
         return {image: fileBuffer, type: file.split(".")[1]}
+    }
+
+    async launch() {
+        // const puuid = (await this.valClient.Player.fetchPlayerRestrictions()).data.Subject;
+        // console.log(await this.valClient.App.fetchConfig())
+        // const client = new LocalRiotClientAPI("128.0.0.1", "12347", "LKloginking", "Qawsed7810.1")
+        //
+        await LocalRiotClientAPI.launch(null, '51835', '127.0.0.1', 'valorant', 'live')
     }
 
     // async patchBackgroundImage(newImage: string) {

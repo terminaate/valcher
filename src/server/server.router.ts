@@ -8,6 +8,7 @@ serverRouter.post("/auth", ServerController.auth)
 serverRouter.get("/users/@me", AuthMiddleware, ServerController.getUser)
 serverRouter.get("/config/background", ServerController.getBackground)
 // serverRouter.patch("/config/background", ServerController.patchBackground)
+serverRouter.post("/launch", AuthMiddleware, ServerController.launch)
 
 serverRouter.use("/*", ServerController.notFound)
 

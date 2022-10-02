@@ -1,15 +1,15 @@
-import {Router} from "express";
-import ServerController from "./server.controller";
-import AuthMiddleware from "./middlewares/auth.middleware";
+import { Router } from 'express';
+import ServerController from './server.controller';
+import AuthMiddleware from './middlewares/auth.middleware';
 
-const serverRouter = Router()
+const serverRouter = Router();
 
-serverRouter.post("/auth", ServerController.auth)
-serverRouter.get("/users/@me", AuthMiddleware, ServerController.getUser)
-serverRouter.get("/config/background", ServerController.getBackground)
+serverRouter.post('/auth', ServerController.auth);
+serverRouter.get('/users/@me', AuthMiddleware, ServerController.getUser);
+serverRouter.get('/config/background', ServerController.getBackground);
 // serverRouter.patch("/config/background", ServerController.patchBackground)
-serverRouter.post("/launch", AuthMiddleware, ServerController.launch)
+serverRouter.post('/launch', AuthMiddleware, ServerController.launch);
 
-serverRouter.use("/*", ServerController.notFound)
+serverRouter.use('/*', ServerController.notFound);
 
-export default serverRouter
+export default serverRouter;

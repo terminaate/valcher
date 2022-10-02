@@ -1,20 +1,20 @@
-import React, {FC, useEffect} from 'react';
-import {useNavigate} from "react-router-dom";
+import React, { FC, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface IAuthorizedRoute {
-    children: JSX.Element
+	children: JSX.Element;
 }
 
-const AuthorizedRoute: FC<IAuthorizedRoute> = ({children}) => {
-    const navigate = useNavigate();
+const AuthorizedRoute: FC<IAuthorizedRoute> = ({ children }) => {
+	const navigate = useNavigate();
 
-    useEffect(() => {
-        if (!localStorage.getItem("puuid")) {
-            navigate("/")
-        }
-    }, [])
+	useEffect(() => {
+		if (!localStorage.getItem('puuid')) {
+			navigate('/');
+		}
+	}, []);
 
-    return children;
+	return children;
 };
 
 export default AuthorizedRoute;

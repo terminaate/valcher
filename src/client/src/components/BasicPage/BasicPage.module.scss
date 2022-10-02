@@ -1,18 +1,18 @@
 .basicPage {
-  position: absolute;
-  padding-top: 3px;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  background-color: var(--background-secondary);
+	position: absolute;
+	padding-top: 3px;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	background-color: var(--background-secondary);
 
-  .pageContainer {
-    width: 100%;
-    height: 100%;
-    background-color: var(--background-primary);
+	.pageContainer {
+		width: 100%;
+		height: 100%;
+		background-color: var(--background-primary);
 
-    &[data-border-radius="true"] {
-      border-top-left-radius: 8px;
-    }
-  }
+		&[data-border-radius='true'] {
+			border-top-left-radius: 8px;
+		}
+	}
 }

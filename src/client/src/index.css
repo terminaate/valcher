@@ -1,49 +1,51 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
-*, *:after, *:before {
-    padding: 0;
-    margin: 0;
-    outline: none;
-    list-style-type: none;
-    box-sizing: border-box;
-    user-select: none;
+*,
+*:after,
+*:before {
+	padding: 0;
+	margin: 0;
+	outline: none;
+	list-style-type: none;
+	box-sizing: border-box;
+	user-select: none;
 }
 
 :root {
-    --background-primary: #111;
-    --background-secondary: #0e0e0e;
-    --background-red: #fa4454;
-    --background-red-secondary: #dc3d4b;
-    --text-primary: #fff;
-    --border-primary: rgba(255, 255, 255, 0.1);
-    --text-secondary: rgba(255, 255, 255, 0.5);
-    --font-primary: 'Inter', sans-serif;
+	--background-primary: #111;
+	--background-secondary: #0e0e0e;
+	--background-red: #fa4454;
+	--background-red-secondary: #dc3d4b;
+	--text-primary: #fff;
+	--border-primary: rgba(255, 255, 255, 0.1);
+	--text-secondary: rgba(255, 255, 255, 0.5);
+	--font-primary: 'Inter', sans-serif;
 }
 
 body {
-    background-color: var(--background-primary);
-    color: var(--text-primary);
-    font-family: var(--font-primary);
+	background-color: var(--background-primary);
+	color: var(--text-primary);
+	font-family: var(--font-primary);
 }
 
 .appTitle {
-    position: relative;
-    transform: none;
-    left: 0;
-    color: rgba(255, 255, 255, 0.3);
-    font-weight: 500;
+	position: relative;
+	transform: none;
+	left: 0;
+	color: rgba(255, 255, 255, 0.3);
+	font-weight: 500;
 }
 
 .appIconContainer {
-    display: flex;
-    align-items: center;
-    padding-left: 19px;
-    line-height: 100%;
-    width: auto;
-    column-gap: 10px;
-    font-size: 12px;
+	display: flex;
+	align-items: center;
+	padding-left: 19px;
+	line-height: 100%;
+	width: auto;
+	column-gap: 10px;
+	font-size: 12px;
 }
 
 .appIconContainer img {
-    display: none;
+	display: none;
 }

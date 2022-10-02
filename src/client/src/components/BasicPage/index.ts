@@ -1,3 +1,3 @@
-import BasicPage from "./BasicPage";
+import BasicPage from './BasicPage';
 
-export default BasicPage
+export default BasicPage;

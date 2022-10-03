@@ -7,21 +7,97 @@
 	justify-content: center;
 
 	.tooltip {
-		left: 120%;
 		width: max-content;
 		padding-inline: 20px;
 		padding-block: 1px;
 		border-radius: 5px;
 		min-width: 60px;
+		min-height: 25px;
 		text-align: center;
-		background-color: var(--background-primary);
-		border: 2px solid var(--background-red);
+		background-color: var(--background-red);
+		color: var(--background-primary);
+		line-height: 150%;
 		position: absolute;
 		transition: opacity 0.2s;
 		opacity: 0;
 		pointer-events: none;
 		//font-size: 20px;
 		z-index: 99999;
+
+		//&::after {
+		//	content: " ";
+		//	position: absolute;
+		//	top: 50%;
+		//	right: 100%;
+		//	margin-top: -5px;
+		//	border-width: 5px;
+		//	border-style: solid;
+		//	border-color: transparent var(--background-red) transparent transparent;
+		//}
+
+		&[data-position="top"] {
+			bottom: 120%;
+			left: 50%;
+			transform: translateX(-50%);
+
+			&::after {
+				content: " ";
+				position: absolute;
+				top: 100%; /* At the bottom of the tooltip */
+				left: 50%;
+				margin-left: -5px;
+				border-width: 5px;
+				border-style: solid;
+				border-color: var(--background-red) transparent transparent transparent;
+			}
+		}
+
+		&[data-position="bottom"] {
+			top: 120%;
+			left: 50%;
+			transform: translateX(-50%);
+
+			&::after {
+				content: " ";
+				position: absolute;
+				bottom: 100%;  /* At the top of the tooltip */
+				left: 50%;
+				margin-left: -5px;
+				border-width: 5px;
+				border-style: solid;
+				border-color: transparent transparent var(--background-red) transparent;
+			}
+		}
+
+		&[data-position="right"] {
+			left: 120%;
+
+			&::after {
+				content: " ";
+				position: absolute;
+				top: 50%;
+				right: 100%; /* To the left of the tooltip */
+				margin-top: -5px;
+				border-width: 5px;
+				border-style: solid;
+				border-color: transparent var(--background-red) transparent transparent;
+			}
+		}
+
+		&[data-position="left"] {
+			right: 120%;
+
+			&::after {
+				content: " ";
+				position: absolute;
+				top: 50%;
+				left: 100%; /* To the right of the tooltip */
+				margin-top: -5px;
+				border-width: 5px;
+				border-style: solid;
+				border-color: transparent transparent transparent var(--background-red);
+			}
+		}
 	}
 
 	&:hover {

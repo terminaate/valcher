@@ -17,17 +17,11 @@
 		"jsx": "react-jsx",
 		"noImplicitAny": false,
 		"typeRoots": ["./src/declare.d.ts"],
-		"types": [
-			"vite/client"
-		],
+		"types": ["vite/client"],
 		"baseUrl": ".",
 		"paths": {
-			"@/*": [
-				"src/*"
-			],
-			"!/*": [
-				"src/assets/*"
-			]
+			"@/*": ["src/*"],
+			"!/*": ["src/assets/*"]
 		}
 	},
 	"include": ["src", "src/assets"],

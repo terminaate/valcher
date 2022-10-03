@@ -1,10 +1,23 @@
 import React from 'react';
 import cl from './NavBar.module.scss';
-import { FaLayerGroup, FaStore, FaUser, GiSpy } from 'react-icons/all';
+import { FaLayerGroup, FaPlay, FaStore, FaUser, GiSpy } from 'react-icons/all';
 import { NavLink } from 'react-router-dom';
 import Tooltip from '../Tooltip';
+import UserService from '@/services/UserService';
+import { useAppSelector } from '@/store';
 
 const NavBar = () => {
+	const { isPending } = useAppSelector((state) => state.userSlice);
+
+	const launchGame = async () => {
+		try {
+			await UserService.launchGame();
+			window.close();
+		} catch (e: any) {
+			console.log('Unexcepted error', e.response.data);
+		}
+	};
+
 	return (
 		<div className={cl.navBarContainer}>
 			<Tooltip text={'Profile'}>
@@ -38,6 +51,16 @@ const NavBar = () => {
 					</button>
 				</NavLink>
 			</Tooltip>
+
+			{!isPending && (
+				<div className={cl.playButtonContainer}>
+					<Tooltip text={'Play'}>
+						<button onClick={launchGame} className={cl.button}>
+							<FaPlay />
+						</button>
+					</Tooltip>
+				</div>
+			)}
 		</div>
 	);
 };

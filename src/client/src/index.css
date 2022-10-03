@@ -30,6 +30,16 @@ body {
 	overflow-x: hidden;
 }
 
+::-webkit-scrollbar {
+	width: 2px;
+	background: none;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: var(--background-secondary);
+	border-radius: 5px;
+}
+
 .appTitle {
 	position: relative;
 	transform: none;

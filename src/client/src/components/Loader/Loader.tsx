@@ -2,7 +2,7 @@ import React from 'react';
 import { useAppSelector } from '@/store';
 import cl from './Loader.module.scss';
 import BasicPage from '../BasicPage';
-import loaderImg from "!/images/loader.gif";
+import loaderImg from '!/images/loader.gif';
 
 const Loader = () => {
 	const { isPending } = useAppSelector((state) => state.userSlice);
@@ -14,8 +14,11 @@ const Loader = () => {
 					pageClassName={cl.loadingContainer}
 					className={cl.loadingPage}
 				>
-					<span>Please wait, loading data from server, heres a gif for u while u waiting ;)</span>
-					<img src={loaderImg} alt=""/>
+					<span>
+						Please wait, loading data from server, heres a gif for u while u
+						waiting ;)
+					</span>
+					<img src={loaderImg} alt="" />
 				</BasicPage>
 			)}
 		</>

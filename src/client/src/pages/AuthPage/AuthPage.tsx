@@ -8,7 +8,7 @@ import Input from '@/components/UI/Input';
 import { FaEye, FaEyeSlash, FaPen, FaUser, FiLogIn } from 'react-icons/all';
 import Button from '@/components/UI/Button';
 import { baseURL } from '@/http';
-import tLogoImg from "!/images/transperent_logo.svg";
+import tLogoImg from '!/images/transperent_logo.svg';
 
 const AuthPage = () => {
 	const [username, onUsernameChange] = useInputState('');
@@ -35,9 +35,7 @@ const AuthPage = () => {
 		<BasicPage pageClassName={cl.authPage}>
 			<div className={cl.authPageContainer}>
 				<div className={cl.promptText}>
-					<img src={tLogoImg} alt=""/>
-					-
-					<span>Welcome back to Valcher!</span>
+					<img src={tLogoImg} alt="" />-<span>Welcome back to Valcher!</span>
 				</div>
 				<div className={cl.inputsContainer}>
 					<Input

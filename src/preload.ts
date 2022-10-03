@@ -10,7 +10,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	titleBar._windowIcon.className = 'appIconContainer';
 	titleBar._title.remove();
 	titleBar._titlebar.style.cursor = 'pointer';
-	titleBar._setIconSize(30)
+	titleBar._setIconSize(30);
 
 	// titleBar._title.style.position = "relative";
 	// titleBar._title.style.transform = "";

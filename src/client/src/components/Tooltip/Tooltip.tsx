@@ -7,7 +7,7 @@ interface ITooltip {
 	position?: "top" | "left" | "bottom" | "right"
 }
 
-const Tooltip: FC<ITooltip> = ({ children, text, position="left" }) => {
+const Tooltip: FC<ITooltip> = ({ children, text, position="right" }) => {
 	return (
 		<div className={cl.tooltipContainer}>
 			{children}

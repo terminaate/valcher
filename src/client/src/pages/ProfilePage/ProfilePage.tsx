@@ -50,7 +50,7 @@ const ProfilePage = () => {
                                         <span className={cl.currentXp}>{user.playerProgress?.xp}</span>
                                     </Tooltip>
                                     <div className={cl.progressLine}>
-                                        <Tooltip position={"top"} text={"asd"}>
+                                        <Tooltip position={"top"} text={`${user.playerProgress?.xp}/5000`}>
                                             <span style={{width: user.playerProgress?.xp / 10}}/>
                                         </Tooltip>
 

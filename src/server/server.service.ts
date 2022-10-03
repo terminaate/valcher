@@ -7,6 +7,12 @@ import axios from 'axios';
 
 const { LocalRiotClientAPI } = require('@liamcottle/valorant.js');
 
+// TODO
+// add match tracking
+
+// TODO
+// add favorite skin for tracking a shop
+
 class ServerService {
 	private valClient: WebClient.Client;
 	private valApiComClient: ValorantApiCom.Client;
@@ -79,9 +85,10 @@ class ServerService {
 		};
 		let playerTitle = null;
 		const history = (await this.valClient.Player.accountXP(puuid)).data;
+		console.log(puuid)
+		const mmr = (await this.valApiComClient.CompetitiveTiers.getByUuid(puuid))
 
-		// Todo
-		// add Mmr
+		console.log(mmr);
 
 		try {
 			playerTitle = (

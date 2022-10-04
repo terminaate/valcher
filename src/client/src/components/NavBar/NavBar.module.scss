@@ -38,9 +38,9 @@
 		align-items: center;
 		justify-content: center;
 		overflow: hidden;
-		transition: .2s;
+		transition: 0.2s;
 
-		&[disabled=""] {
+		&[disabled=''] {
 			border-color: var(--background-red-alt);
 			color: var(--background-red-alt);
 		}

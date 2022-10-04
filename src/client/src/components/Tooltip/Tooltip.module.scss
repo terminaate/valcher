@@ -35,13 +35,13 @@
 		//	border-color: transparent var(--background-red) transparent transparent;
 		//}
 
-		&[data-position="top"] {
+		&[data-position='top'] {
 			bottom: 120%;
 			left: 50%;
 			transform: translateX(-50%);
 
 			&::after {
-				content: " ";
+				content: ' ';
 				position: absolute;
 				top: 100%; /* At the bottom of the tooltip */
 				left: 50%;
@@ -52,15 +52,15 @@
 			}
 		}
 
-		&[data-position="bottom"] {
+		&[data-position='bottom'] {
 			top: 120%;
 			left: 50%;
 			transform: translateX(-50%);
 
 			&::after {
-				content: " ";
+				content: ' ';
 				position: absolute;
-				bottom: 100%;  /* At the top of the tooltip */
+				bottom: 100%; /* At the top of the tooltip */
 				left: 50%;
 				margin-left: -5px;
 				border-width: 5px;
@@ -69,11 +69,11 @@
 			}
 		}
 
-		&[data-position="right"] {
+		&[data-position='right'] {
 			left: 120%;
 
 			&::after {
-				content: " ";
+				content: ' ';
 				position: absolute;
 				top: 50%;
 				right: 100%; /* To the left of the tooltip */
@@ -84,11 +84,11 @@
 			}
 		}
 
-		&[data-position="left"] {
+		&[data-position='left'] {
 			right: 120%;
 
 			&::after {
-				content: " ";
+				content: ' ';
 				position: absolute;
 				top: 50%;
 				left: 100%; /* To the right of the tooltip */

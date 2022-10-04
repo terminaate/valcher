@@ -62,7 +62,7 @@ const ProfilePage = () => {
                                 </div>
                             </div>
                             <div className={cl.userMmrContainer}>
-                                asd
+                                Here is your rank goes here ;) but rn i don't write this on backend
                             </div>
                         </div>
                     </div>

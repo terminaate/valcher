@@ -11,7 +11,7 @@
     .userInfoContainer {
       background-color: var(--background-secondary);
       width: 100%;
-      height: 250px;
+      height: 275px;
       border-radius: 10px;
 
       .bannerImage {
@@ -32,10 +32,7 @@
         align-items: center;
         column-gap: 20px;
         padding-inline: 50px;
-
-        @media screen and (max-width: 970px) {
-          padding-top: 15px;
-        }
+        padding-top: 15px;
 
 
         .userAvatar {

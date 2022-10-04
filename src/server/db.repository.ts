@@ -7,6 +7,9 @@ interface User {
 	password: string;
 }
 
+// TODO
+// add sequlize
+
 class DbRepository {
 	private dbPath = path.resolve(__dirname, 'db.json');
 	private rootPath = path.resolve(__dirname, '');

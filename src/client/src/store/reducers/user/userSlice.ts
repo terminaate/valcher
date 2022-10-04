@@ -1,5 +1,5 @@
 import {AnyAction, createSlice, Draft} from '@reduxjs/toolkit';
-import userAsyncThunks, {auth, getUserInfo} from './userAPI';
+import userAsyncThunks, {auth, getUserInfo, launchGame} from './userAPI';
 import History from '@/utils/history';
 
 type NullOr<T = any> = null | T;
@@ -7,6 +7,7 @@ type NullOr<T = any> = null | T;
 export interface UserState {
     error: NullOr<string>;
     isPending: boolean;
+    isGameLaunched: boolean;
     authorized: boolean;
     user: {
         puuid: NullOr<string>;
@@ -29,6 +30,7 @@ export interface UserState {
 export const initialState: UserState = {
     error: null,
     isPending: false,
+    isGameLaunched: false,
     authorized: false,
     user: {
         puuid: null,
@@ -96,6 +98,14 @@ export const userSlice = createSlice({
                 }
                 localStorage.setItem('puuids', JSON.stringify(users));
                 handleFulfilled(state);
+            }
+        );
+
+        builder.addCase(
+            launchGame.fulfilled,
+            (state: Draft<UserState>, action) => {
+                state.isGameLaunched = action.payload;
+                handleFulfilled(state)
             }
         );
     },

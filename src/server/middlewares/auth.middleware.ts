@@ -1,24 +1,28 @@
 import ServerException from '../exceptions/server.exception';
-import { NextFunction, Request, Response } from 'express';
-import DbRepository from '../db.repository';
-import ServerService from '../server.service';
+import {NextFunction, Request, Response} from 'express';
+import Account from '../models/user.model';
+import JwtService from '../services/jwt.service';
+import {Model} from 'sequelize';
+import ServerService from "../server.service";
 
-export type UserRequest = Request & { user: string };
+export type UserRequest = Request & { user: Model<typeof Account, any> };
 
-export default async (req: UserRequest, res: Response, next: NextFunction) => {
-	try {
-		const authorizationHeader = req.headers.authorization;
-		const userData = DbRepository.db.find(
-			(u) => u.puuid === authorizationHeader
-		);
-		if (!userData) {
-			return next(ServerException.UnauthorizedError());
-		}
+export default async (
+    req: UserRequest,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        const accessToken = req.headers.authorization.split(" ")[1];
+        const userData = await JwtService.verify(accessToken);
+        if (!userData || !accessToken) {
+            return next(ServerException.UnauthorizedError());
+        }
 
-		await ServerService.auth(userData.puuid);
-		req.user = authorizationHeader;
-		next();
-	} catch (e) {
-		return next(ServerException.UnauthorizedError());
-	}
+        await ServerService.auth(accessToken);
+        req.user = await Account.findByPk(userData.id);
+        next();
+    } catch (e) {
+        return next(ServerException.UnauthorizedError());
+    }
 };

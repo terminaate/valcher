@@ -1,10 +1,11 @@
 import { ValorantApiCom, WebClient } from 'valorant.ts';
 import ServerException from './exceptions/server.exception';
-import DbRepository from './db.repository';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import axios from 'axios';
 import { exec } from 'child_process';
+import JwtService from './services/jwt.service';
+import Account from './models/user.model';
 
 const { LocalRiotClientAPI } = require('@liamcottle/valorant.js');
 
@@ -18,28 +19,56 @@ class ServerService {
 	private valClient: WebClient.Client;
 	private valApiComClient: ValorantApiCom.Client;
 
-	async auth(puuid?, username?: string, password?: string) {
+	async refresh(refreshToken: string) {
+		const { id: userId } = await JwtService.verify(refreshToken, true);
+		const account = await Account.findByPk(userId);
+		if (!account) {
+			throw ServerException.WrongAuthData();
+		}
+
+		const id = account.getDataValue('id');
+		const newAccessToken = await JwtService.generateToken({ id });
+		const newRefreshToken = await JwtService.generateToken({ id }, true);
+		const payload = {
+			accessToken: newAccessToken,
+			refreshToken: newRefreshToken,
+		};
+		await account.update(payload);
+		return payload;
+	}
+
+	async auth(accessToken?: string, username?: string, password?: string) {
 		this.valClient = new WebClient.Client({
 			expiresIn: { cookie: 300000, token: 300000 },
 		});
 		this.valApiComClient = new ValorantApiCom.Client();
+		const authData: { username: string; password: string } = {} as {
+			username: string;
+			password: string;
+		};
 
-		if (puuid) {
-			const user = DbRepository.db.find((u) => u.puuid === puuid);
-			if (!user) {
+		if (accessToken) {
+			const { id: userId } = await JwtService.verify(accessToken);
+			const account = await Account.findByPk(userId);
+			if (!account) {
 				throw ServerException.WrongAuthData();
 			}
-			await this.valClient.login(user.username, user.password);
+			await this.valClient.login(
+				account.getDataValue('username'),
+				account.getDataValue('password')
+			);
+			authData.username = account.getDataValue('username');
+			authData.password = account.getDataValue('password');
 		} else if (username && password) {
-			// TODO
-			// integrate argon2
 			await this.valClient.login(username, password);
+			authData.username = username;
+			authData.password = password;
 		} else {
 			throw ServerException.WrongAuthData();
 		}
 
 		// TODO
-		// add multifactor auth
+		// add multifactor auth (add verify method)
 		if (this.valClient.isMultifactor) {
 			return { puuid: null, isMultifactor: this.valClient.isMultifactor };
 		}
@@ -53,12 +82,32 @@ class ServerService {
 			throw ServerException.WrongAuthData();
 		}
 
-		if (!DbRepository.db.find((u) => u.puuid === userPuuid)) {
-			DbRepository.addUser(userPuuid, username, password);
+		let candidate = await Account.findOne({ where: { puuid: userPuuid } });
+		if (!candidate) {
+			const newAccount = Account.build({ puuid: userPuuid });
+			const accessToken = await JwtService.generateToken({
+				id: newAccount.getDataValue('id'),
+			});
+			const refreshToken = await JwtService.generateToken(
+				{ id: newAccount.getDataValue('id') },
+				true
+			);
+			newAccount.set({
+				accessToken,
+				refreshToken,
+				username: authData.username,
+				password: authData.password,
+			});
+			await newAccount.save();
+			candidate = newAccount;
 		}
 
 		// console.log(this.valClient.toJSON())
-		return { puuid: userPuuid };
+		return {
+			puuid: userPuuid,
+			accessToken: candidate.getDataValue('accessToken'),
+			refreshToken: candidate.getDataValue('refreshToken'),
+		};
 		// TESTS OF API
 		// const weaponId = (await this.valClient.Store.getStorefront(puuid)).data.BonusStore.BonusStoreOffers[0].BonusOfferID
 		// console.log(await this.valApiComClient.Weapons.getByUuid(weaponId))

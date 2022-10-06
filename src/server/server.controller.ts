@@ -5,14 +5,44 @@ import { UserRequest } from './middlewares/auth.middleware';
 class ServerController {
 	async auth(req: Request, res: Response, next: NextFunction) {
 		try {
-			const { puuid, username, password } = req.body;
-			let userData: { puuid: null | string; isMultifactor?: boolean };
-			if (puuid) {
-				userData = await ServerService.auth(puuid);
+			const { accessToken, username, password } = req.body;
+			let userData: {
+				puuid: null | string;
+				isMultifactor?: boolean;
+				accessToken?: string;
+				refreshToken?: string;
+			};
+			if (accessToken) {
+				userData = await ServerService.auth(accessToken);
 			} else {
 				userData = await ServerService.auth('', username, password);
 			}
-			res.status(200).json(userData);
+			res.cookie('refreshToken', userData.refreshToken, {
+				httpOnly: true,
+				maxAge: 172800000,
+			}); // 172800000 - 2 days
+			res.status(200).json({
+				puuid: userData.puuid,
+				isMultifactor: userData.isMultifactor,
+				accessToken: userData.accessToken,
+			});
+		} catch (e) {
+			next(e);
+		}
+	}
+
+	async refresh(req: Request, res: Response, next: NextFunction) {
+		try {
+			const { refreshToken } = req.cookies;
+			const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
+				await ServerService.refresh(refreshToken);
+			res.cookie('refreshToken', newRefreshToken, {
+				httpOnly: true,
+				maxAge: 172800000,
+			}); // 172800000 - 2 days
+			res.status(200).json({
+				accessToken: newAccessToken,
+			});
 		} catch (e) {
 			next(e);
 		}

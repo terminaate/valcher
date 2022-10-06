@@ -8,10 +8,10 @@ const App = () => {
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
-		if (!localStorage.getItem('puuids')) {
-			localStorage.setItem('puuids', JSON.stringify([]));
-		} else if (localStorage.getItem('puuid')) {
-			dispatch(auth({ puuid: localStorage.getItem('puuid')! }));
+		if (!localStorage.getItem('accounts')) {
+			localStorage.setItem('accounts', JSON.stringify([]));
+		} else if (localStorage.getItem('accessToken')) {
+			dispatch(auth({ accessToken: localStorage.getItem('accessToken')! }));
 		}
 	}, []);
 

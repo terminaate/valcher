@@ -3,6 +3,7 @@ import serverRouter from './server.router';
 import * as path from 'path';
 import db from './db';
 import JwtService from './services/jwt.service';
+import * as cookieParser from "cookie-parser";
 
 const express = require('express');
 const cors = require('cors');
@@ -19,7 +20,11 @@ async function start(port = 19245) {
 
 	await JwtService.init();
 
-	app.use(cors());
+	app.use(cors({
+		credentials: true,
+		origin: ["http://127.0.0.1:3000","http://localhost:3000", "http://127.0.0.1:19245", "http://localhost:19245"]
+	}));
+	app.use(cookieParser())
 	app.use(express.json({ extended: true, limit: '100mb' }));
 	app.use(express.static(path.resolve(__dirname, '../client')));
 	app.use('/api', serverRouter);

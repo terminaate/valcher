@@ -15,7 +15,7 @@ const AccountSwitcher = () => {
 	const changeAccount = (account: Record<string, any>) => {
 		if (localStorage.getItem('puuid') !== account.puuid) {
 			localStorage.setItem('puuid', account.puuid);
-			dispatch(auth({ puuid: account.puuid }));
+			dispatch(auth({ accessToken: account.accessToken }));
 			window.location.reload();
 		}
 		if (location.pathname !== '/profile') {
@@ -25,7 +25,7 @@ const AccountSwitcher = () => {
 
 	return (
 		<div className={cl.switcherContainer}>
-			{JSON.parse(localStorage.getItem('puuids')! || [] + '').map(
+			{JSON.parse(localStorage.getItem('accounts')! || [] + '').map(
 				(account, key) => (
 					<Tooltip key={key} text={account.username}>
 						<button
@@ -33,7 +33,7 @@ const AccountSwitcher = () => {
 							data-active={localStorage.getItem('puuid') === account.puuid}
 							className={cl.button}
 						>
-							<img alt={''} src={account.playerCard.displayIcon} />
+							<img alt={''} src={account.avatar} />
 						</button>
 					</Tooltip>
 				)

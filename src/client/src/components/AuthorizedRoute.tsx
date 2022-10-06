@@ -9,7 +9,7 @@ const AuthorizedRoute: FC<IAuthorizedRoute> = ({ children }) => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (!localStorage.getItem('puuid')) {
+		if (!localStorage.getItem('accessToken')) {
 			navigate('/');
 		}
 	}, []);

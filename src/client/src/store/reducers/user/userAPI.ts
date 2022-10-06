@@ -25,13 +25,13 @@ export const auth = createAsyncThunk(
 		{
 			username,
 			password,
-			puuid,
-		}: { puuid?: string; username?: string; password?: string },
+			accessToken,
+		}: { accessToken?: string; username?: string; password?: string },
 		thunkAPI
 	) => {
 		try {
-			const { data } = puuid
-				? await AuthService.auth(puuid)
+			const { data } = accessToken
+				? await AuthService.auth(accessToken)
 				: await AuthService.auth('', username, password);
 			return data;
 		} catch (e: any) {

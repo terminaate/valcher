@@ -107,7 +107,6 @@ export const userSlice = createSlice({
         );
 
         builder.addCase(launchGame.fulfilled, (state: Draft<UserState>, action) => {
-            state.isGameLaunched = action.payload;
             handleFulfilled(state);
         });
     },

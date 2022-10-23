@@ -14,6 +14,7 @@ export default (
     }
     if (err instanceof ServerException || (err as Error) instanceof Error) {
         res.status(err.code);
+        console.log(err.code);
         return res.json({code: err.code, message: err.message});
     }
     res.status(500);

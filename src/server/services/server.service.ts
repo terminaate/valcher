@@ -1,11 +1,11 @@
 import { ValorantApiCom, WebClient } from 'valorant.ts';
-import ServerException from './exceptions/server.exception';
+import ServerException from '../exceptions/server.exception';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import axios from 'axios';
 import { exec } from 'child_process';
-import JwtService from './services/jwt.service';
-import Account from './models/user.model';
+import JwtService from '../services/jwt.service';
+import Account from '../models/user.model';
 
 const { LocalRiotClientAPI } = require('@liamcottle/valorant.js');
 
@@ -109,7 +109,6 @@ class ServerService {
 			refreshToken: candidate.getDataValue('refreshToken'),
 		};
 		// TESTS OF API
-		// const weaponId = (await this.valClient.Store.getStorefront(puuid)).data.BonusStore.BonusStoreOffers[0].BonusOfferID
 		// console.log(await this.valApiComClient.Weapons.getByUuid(weaponId))
 		// const {Progress: accountXp, History: accountMatches} = (await PlayerService.accountXP(puuid)).data
 		// SERVICEURL_STORE: 'https://pd.eu.a.pvp.net',
@@ -119,8 +118,7 @@ class ServerService {
 
 	async getUserInfo() {
 		const { data } = await this.valClient.Player.getUserInfo();
-		const puuid = (await this.valClient.Player.fetchPlayerRestrictions()).data
-			.Subject;
+		const puuid = (await this.valClient.Player.fetchPlayerRestrictions()).data.Subject;
 		const { data: inventory } = await this.valClient.Player.loadout(puuid);
 		const { data: playerCard } = (
 			await this.valApiComClient.PlayerCards.getByUuid(
@@ -167,14 +165,14 @@ class ServerService {
 	async getBackgroundImage() {
 		// TODO
 		// complete of editing and getting background image
-
-		const staticFiles = await fs.readdir(path.resolve(__dirname, './static'));
+		const staticPath = "../static/";
+		const staticFiles = await fs.readdir(path.resolve(__dirname, staticPath));
 		// console.log(staticFiles)
 		const file: string = staticFiles.find((u) => u.startsWith('background'));
 		// if (staticFiles.find(u => u.startsWith("custom_background"))) {
 		//     file = staticFiles.find(u => u.startsWith("custom_background"))
 		// }
-		const filePath = path.resolve(__dirname, './static/' + file);
+		const filePath = path.resolve(__dirname, staticPath + file);
 		const fileBuffer = await fs.readFile(filePath);
 		return { image: fileBuffer, type: file.split('.')[1] };
 	}
@@ -200,25 +198,26 @@ class ServerService {
 			'valorant',
 			'live'
 		);
-
-		return new Promise((resolve) => {
-			const interval = setInterval(() => {
-				this.isRunning('RiotClientServices.exe', (status) => {
-					if (status) {
-						clearInterval(interval);
-						resolve(status);
-					}
-				});
-			}, 1500);
-		});
 	}
 
 	async getNews() {
-		const { data: news } = await axios.get(
-			'https://playvalorant.com/page-data/en-us/news/page-data.json'
-		);
+		const { data: news } = await axios.get('https://playvalorant.com/page-data/en-us/news/page-data.json');
 		return news.result.data.allContentstackNews.nodes[0].featured_news
 			.selectedArticles;
+	}
+
+	async getShop(single: boolean) {
+		const puuid = (await this.valClient.Player.fetchPlayerRestrictions()).data.Subject;
+		const shop = (await this.valClient.Store.getStorefront(puuid)).data;
+		if (single) {
+
+
+			// console.log(shop.SkinsPanelLayout.SingleItemOffers[0]);
+
+			console.log(shop)
+			// console.log(await this.valApiComClient.Bundles.getByUuid(shop.FeaturedBundle.Bundle.Items[0].CurrencyID)); // набор
+		}
+		return {}
 	}
 
 	isRunning(query: string, cb: (status: boolean) => void) {

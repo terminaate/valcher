@@ -3,7 +3,7 @@ import {NextFunction, Request, Response} from 'express';
 import Account from '../models/user.model';
 import JwtService from '../services/jwt.service';
 import {Model} from 'sequelize';
-import ServerService from "../server.service";
+import ServerService from "../services/server.service";
 
 export type UserRequest = Request & { user: Model<typeof Account, any> };
 

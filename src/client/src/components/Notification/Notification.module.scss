@@ -1,0 +1,15 @@
+.notificationContainer {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 30px;
+  width: max-content;
+  padding-block: 15px;
+  padding-inline: 20px;
+  border-radius: 7px;
+  background-color: var(--background-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

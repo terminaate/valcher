@@ -33,6 +33,10 @@ export interface INews {
 	};
 }
 
+export interface IStoreItem {
+
+}
+
 class UserService {
 	static async getUserInfo(): Promise<AxiosResponse<User>> {
 		return await $api.get<User>('/users/@me');

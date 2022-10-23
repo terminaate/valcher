@@ -1,5 +1,5 @@
 import {Server, Socket} from "socket.io";
-import ServerService from "../services/server.service";
+import isRunning from "../utils/isRunning";
 
 class SocketRouter {
     private socket: Socket;
@@ -9,7 +9,7 @@ class SocketRouter {
         this.socket = socket;
         this.io = io;
         setInterval(() => {
-            ServerService.isRunning('RiotClientServices.exe', (status) => {
+            isRunning('RiotClientServices.exe', (status) => {
                 this.io.emit("game:state", status);
             });
         }, 1500);

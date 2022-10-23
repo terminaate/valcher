@@ -95,13 +95,15 @@ export const userSlice = createSlice({
             getUserInfo.fulfilled,
             (state: Draft<UserState>, action) => {
                 state.user = action.payload as any;
-                const accounts = JSON.parse(localStorage.getItem('accounts') as string).filter(u => u === state.accessToken);
-                accounts.push({
-                    username: state.user.username,
-                    accessToken: state.accessToken,
-                    avatar: state.user.playerCard?.displayIcon
-                });
-                localStorage.setItem('accounts', JSON.stringify(accounts));
+                const accounts = JSON.parse(localStorage.getItem('accounts')!) as Record<string, any>[];
+                if (!accounts.find(u => u.accessToken === state.accessToken)) {
+                    accounts.push({
+                        username: state.user.username,
+                        accessToken: state.accessToken,
+                        avatar: state.user.playerCard?.displayIcon
+                    });
+                    localStorage.setItem('accounts', JSON.stringify(accounts));
+                }
                 handleFulfilled(state);
             }
         );

@@ -13,8 +13,8 @@ const AccountSwitcher = () => {
 	const { isPending } = useAppSelector((state) => state.userSlice);
 
 	const changeAccount = (account: Record<string, any>) => {
-		if (localStorage.getItem('puuid') !== account.puuid) {
-			localStorage.setItem('puuid', account.puuid);
+		if (localStorage.getItem('accessToken') !== account.accessToken) {
+			localStorage.setItem('accessToken', account.accessToken);
 			dispatch(auth({ accessToken: account.accessToken }));
 			window.location.reload();
 		}
@@ -30,7 +30,7 @@ const AccountSwitcher = () => {
 					<Tooltip key={key} text={account.username}>
 						<button
 							onClick={() => changeAccount(account)}
-							data-active={localStorage.getItem('puuid') === account.puuid}
+							data-active={localStorage.getItem('accessToken') === account.accessToken}
 							className={cl.button}
 						>
 							<img alt={''} src={account.avatar} />
